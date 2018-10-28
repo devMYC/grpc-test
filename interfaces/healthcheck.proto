@@ -1,0 +1,14 @@
+syntax = "proto3";
+package svcs;
+
+service HealthCheck {
+  rpc PingPong (PingPongReq) returns (PingPongRes) {}
+}
+
+message PingPongReq {
+  string msg = 1;
+}
+
+message PingPongRes {
+  string msg = 1;
+}

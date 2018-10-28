@@ -31,8 +31,8 @@ class App extends Component {
     this.resetData = this.resetData.bind(this)
     this.sendReq = this.sendReq.bind(this)
     this.state = {
-      loading: false,
       data: null,
+      loading: false,
     }
   }
 
@@ -51,21 +51,27 @@ class App extends Component {
 
     this.setState({
       ...this.state,
-      loading: !this.state.loading,
       data: null,
+      loading: !this.state.loading,
     })
 
     const req = new PingPongReq()
     req.setMsg('PING')
 
+    let res
     try {
-      const res = await this.client.pingPong( req )
-      this.setState({ ...this.state, data: res.getMsg() })
+      res = await this.client.pingPong( req )
     }
     catch (err) {
-      this.setState({ ...this.state, data: err.message })
+      res = new Error(err.message)
+      res.code = err.code
     }
-    return this.setState({ ...this.state, loading: !this.state.loading })
+
+    return this.setState({
+      ...this.state,
+      data: res instanceof Error ? res.message : res.getMsg(),
+      loading: !this.state.loading,
+    })
   }
 
   render() {

@@ -13,7 +13,7 @@
 ### Install protoc plugins
 
 ```bash
-$ go get -u github.com/golang/protobuf/protoc-gen-go
+$ go get -u github.com/gogo/protobuf/protoc-gen-gogofaster
 ```
 
 ```bash
@@ -36,10 +36,14 @@ $ yarn  # or `npm install`
 ### Compile .proto file
 
 ```bash
-$ protoc -I interfaces/ interfaces/healthcheck.proto \
---go_out=plugins=grpc:interfaces \
+$ protoc \
+-I interfaces/ \
+-I $GOPATH/src \
+-I $GOPATH/src/github.com/gogo/protobuf/protobuf \
+--gogofaster_out=plugins=grpc:interfaces \
 --js_out=import_style=commonjs:interfaces \
---grpc-web_out=import_style=commonjs,mode=grpcweb:interfaces
+--grpc-web_out=import_style=commonjs,mode=grpcweb:interfaces \
+interfaces/healthcheck.proto
 
 $ cd interfaces && go install && cd ..
 ```

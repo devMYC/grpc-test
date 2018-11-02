@@ -19,7 +19,7 @@ type server struct{}
 const defaultPort = ":3000"
 
 func (s *server) PingPong(ctx context.Context, in *pb.PingPongReq) (*pb.PingPongRes, error) {
-	fmt.Printf("Received: %+v\n", in)
+	fmt.Printf("Received: %+v\n", *in)
 	return &pb.PingPongRes{Msg: "PONG"}, nil
 }
 

@@ -28,7 +28,7 @@ $ sudo make install-plugin
 ```bash
 $ git clone https://github.com/devMYC/grpc-test.git
 $ cd grpc-test
-$ deps ensure  # or install go imports manually
+$ dep ensure  # or install go imports manually
 $ yarn  # or `npm install`
 ```
 
